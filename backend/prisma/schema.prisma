@@ -1,0 +1,67 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Sport {
+  UID      Int       @id @default(autoincrement())
+  name     String
+  athletes Athlete[]
+}
+
+model Athlete {
+  UID         Int       @id @default(autoincrement())
+  name        String
+  age         Int?
+  sportUID    Int?
+  sport       Sport?    @relation(fields: [sportUID], references: [UID])
+  performances AthletePerformance[]
+}
+
+model Coach {
+  UID    Int     @id @default(autoincrement())
+  name   String
+  videos Video[]
+}
+
+  model Video {
+    UID         Int       @id @default(autoincrement())
+    size        Int?
+    upload_date String?
+    url         String
+    status      String?   @default("Processing")
+    coachUID    Int?
+    coach       Coach?    @relation(fields: [coachUID], references: [UID])
+    performances AthletePerformance[]
+  }
+
+model Metric {
+  UID          Int       @id @default(autoincrement())
+  name         String
+  performances AthletePerformance[]
+}
+
+model AthletePerformance {
+  AthleteUID   Int
+  VideoUID     Int
+  timestamp    String
+  metricUID    Int
+  metric_value String?
+
+  athlete      Athlete   @relation(fields: [AthleteUID], references: [UID])
+  video        Video     @relation(fields: [VideoUID], references: [UID])
+  metric       Metric    @relation(fields: [metricUID], references: [UID])
+
+  @@id([AthleteUID, VideoUID, metricUID, timestamp])
+}
