@@ -49,8 +49,9 @@ function Videos() {
                     <td className="px-6 py-4">{index + 1}</td>
                     <td className="px-6 py-4 break-all">
                       <a
-                        href={video.url}
-                        target="_blank"
+                        // href={video.url}
+                        // target="/video"
+                        href={`/video/${video.UID}`}
                         rel="noopener noreferrer"
                         className="text-blue-300 underline"
                       >

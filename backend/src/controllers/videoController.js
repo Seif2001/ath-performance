@@ -37,13 +37,13 @@ exports.createVideo = async (req, res) => {
         if (!coach) {
             return res.status(404).json({ error: 'Coach not found' });
         }
-        videoService.createVideo({
+        const video = await videoService.createVideo({
             url: path,          // File path where the video is stored
             coachUID: parseInt(coachUID), // Coach UID from the request body
             size: size          // Size of the uploaded file
         });
 
-        res.status(201).json(path);
+        res.status(201).json(video);
     } catch (error) {
         console.error("Error creating video:", error);
         res.status(500).json({ error: error.message });
@@ -81,4 +81,32 @@ exports.getVideosByCoachUID = async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 };
+
+exports.getVideoByUID = async (req, res) => {
+    const { UID } = req.params;
+    try {
+        const video = await videoService.getVideoByUID(parseInt(UID));
+        if (!video) {
+            return res.status(404).json({ error: 'Video not found' });
+        }
+        res.status(200).json(video);
+    } catch (error) {
+        console.error("Error fetching video:", error);
+        res.status(500).json({ error: error.message });
+    }
+};
   
+
+exports.updateStatus = async (req, res) => {
+    const { UID } = req.params;
+    try {
+        const updatedVideo = await videoService.updateStatus(parseInt(UID));
+        if (!updatedVideo) {
+            return res.status(404).json({ error: 'Video not found' });
+        }
+        res.status(200).json(updatedVideo);
+    } catch (error) {
+        console.error("Error updating video status:", error);
+        res.status(500).json({ error: error.message });
+    }
+};

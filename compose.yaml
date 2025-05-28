@@ -11,6 +11,8 @@ services:
     volumes:
       - ./client:/app        # <-- add this
       - /app/node_modules     # <-- ignore node_modules from host
+    
+
     develop:
       watch:
         - action: sync

@@ -39,3 +39,14 @@ exports.getVideoByUID = async (UID) => {
     },
   });
 }
+
+exports.updateStatus = async (UID) => {
+  return await prisma.video.update({
+    where: {
+      UID: UID,
+    },
+    data: {
+      status: 'Complete', // Assuming 'processed' is the status you want to set
+    },
+  });
+}

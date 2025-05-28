@@ -6,6 +6,8 @@ import Hero from './pages/Hero';
 import { useLocation } from 'react-router-dom';
 import UploadVideo from './pages/UploadVideo';
 import Videos from './pages/Videos'; // Adjust the import path as necessary
+import VideoViewer from './pages/VideoViewer'; // Adjust the import path as necessary
+import Players from './pages/Players';
 
 const AppContent = () => {
   const location = useLocation();
@@ -20,7 +22,9 @@ const AppContent = () => {
         <Route path="/" element={<Login />} />
         <Route path="/dashboard" element={<Hero />} />
 
-        {/* <Route path="/players" element={<players />} /> */}
+        <Route path="/players" element={<Players />} />
+        <Route path="/video/:videoUID" element={<VideoViewer />} />
+
         <Route path="/videos" element={<Videos />} />
         <Route path="/upload" element={<UploadVideo />} />
       </Routes>

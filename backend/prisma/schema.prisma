@@ -26,6 +26,8 @@ model Athlete {
   age         Int?
   sportUID    Int?
   sport       Sport?    @relation(fields: [sportUID], references: [UID])
+  coachUID    Int
+  coach       Coach?    @relation(fields: [coachUID], references: [UID])
   performances AthletePerformance[]
 }
 
@@ -33,6 +35,7 @@ model Coach {
   UID    Int     @id @default(autoincrement())
   name   String
   videos Video[]
+  atheletes Athlete[]
 }
 
   model Video {
