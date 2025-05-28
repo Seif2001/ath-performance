@@ -20,11 +20,11 @@ const Players = () => {
     const fetchAthletes = async () => {
       if (!coachUID) return;
       setLoading(true);
+      const sportsData = await getAllSports();
+      
+      setSports(sportsData);
       try {
         const data = await getAthletesByCoachId(coachUID);
-        const sportsData = await getAllSports();
-        
-        setSports(sportsData);
         // Map sportUID to sport name for better display
         const athletesWithVideos = await Promise.all(
           data.map(async (athlete) => {
@@ -162,7 +162,7 @@ const Players = () => {
             <td className="border px-4 py-2">{athlete.age}</td>
             <td className="border px-4 py-2">{athlete.sportName}</td>
             <td className="border px-4 py-2">
-              {athlete.videos.length > 0 ? (
+              {athlete.videos?.length > 0 ? (
                 <select
                   className="p-1 border rounded"
                   onChange={(e) => {
