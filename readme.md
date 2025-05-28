@@ -10,10 +10,12 @@
 ## 🚀 How to Run
 
 ```bash
-#simply run:
+#simply run (make sure docker is installed):
 git clone github.com/Seif2001/ath-performance.git
 cd ath-performance
 docker compose up
+# To seed sport and metric data into the database run
+docker exec -it backend npm run seed
 ```
 ```bash
 
