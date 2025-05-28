@@ -21,6 +21,7 @@ docker exec -it backend npx prisma migrate -dev
 # To seed sport and metric data into the database run
 docker exec -it backend npm run seed
 ```
+run: <a>localhost:3000</a> on your browser
 ```bash
 
 📁 Backend File Structure
