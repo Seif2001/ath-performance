@@ -14,6 +14,9 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+seed = "node ./seed.js"
+
+
 model Sport {
   UID      Int       @id @default(autoincrement())
   name     String
